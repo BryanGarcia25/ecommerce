@@ -9,33 +9,33 @@ export class CustomersController {
     constructor(private readonly customersService: CustomersService) {}
 
     @Get()
-    @ApiResponse({ status: 200, description: 'Endpoint para recibir todos los clientes' })
+    @ApiResponse({ status: 200, description: 'Clientes obtenidos de la base de datos' })
     findAllCustomers() {
         return this.customersService.findAllCustomers();
     }
 
     @Get(':id')
-    @ApiResponse({ status: 200, description: 'Endpoint para recibir cliente por su id' })
+    @ApiResponse({ status: 200, description: 'Cliente obtenido de la base de datos' })
     @ApiResponse({ status: 404, description: 'El cliente no existe' })
     findCustomerById(@Param('id') id: string) {
         return this.customersService.findCustomerById(id);
     }
 
     @Post()
-    @ApiResponse({ status: 201, description: 'Endpoint para crear un nuevo cliente' })
+    @ApiResponse({ status: 201, description: 'Cliente registrado con éxito' })
     createCustomer(@Body(new ValidationPipe()) customerDTO: CustomerDto) {
         return this.customersService.createCustomer(customerDTO);
     }
 
     @Put(':id')
-    @ApiResponse({ status: 201, description: 'Endpoint para actualizar un cliente por su id' })
+    @ApiResponse({ status: 201, description: 'Cliente actualizado con éxito' })
     @ApiResponse({ status: 404, description: 'El cliente no existe' })
     updateCustomer(@Param('id') id: string, @Body(new ValidationPipe()) customerDTO: CustomerDto) {
         return this.customersService.updateCustomer(id, customerDTO);
     }
 
     @Delete('id')
-    @ApiResponse({ status: 201, description: 'Endpoint para eliminar un cliente por su id' })
+    @ApiResponse({ status: 201, description: 'Cliente eliminado con éxito' })
     @ApiResponse({ status: 404, description: 'El cliente no existe' })
     removeCustomer(@Param('id') id: string) {
         return this.customersService.removeCustomer(id);
