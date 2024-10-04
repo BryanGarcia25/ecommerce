@@ -7,7 +7,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [
     CustomersModule,
-    MongooseModule.forRoot(`mongodb://${process.env.MONGODB_HOST}/${process.env.MONGODB_DATABASE}`)
+    MongooseModule.forRootAsync({
+      useFactory: () => ({
+        uri: `mongodb://${process.env.MONGODB_HOST}/${process.env.MONGODB_DATABASE}`
+      })
+    })
   ],
   controllers: [AppController],
   providers: [AppService],
