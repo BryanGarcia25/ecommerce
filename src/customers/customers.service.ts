@@ -23,8 +23,7 @@ export class CustomersService {
     }
 
     createCustomer(customer: CustomerDto) {
-        const newCustomer = new this.customerDocumentModel(customer);
-        return newCustomer.save();
+        return this.customerDocumentModel.create(customer);
     }
 
     async updateCustomer(id: string, customer: CustomerDto) {
