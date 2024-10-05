@@ -9,11 +9,11 @@ export class CustomersService {
     constructor(@InjectModel(Customer.name) private readonly customerDocumentModel: Model<CustomerDocument>) {}
 
     findAllCustomers() {
-        return this.customerDocumentModel.find().exec();
+        return this.customerDocumentModel.find();
     }
 
     async findCustomerById(id: string) {
-        const customerFound = await this.customerDocumentModel.findById(id).exec();
+        const customerFound = await this.customerDocumentModel.findById(id);
 
         if (!customerFound) {
             return `El usuario con el id ${id} no existe en la base de datos`;
@@ -27,7 +27,7 @@ export class CustomersService {
     }
 
     async updateCustomer(id: string, customer: CustomerDto) {
-        const customerFound = await this.customerDocumentModel.findByIdAndUpdate(id, customer, { new: true }).exec();
+        const customerFound = await this.customerDocumentModel.findByIdAndUpdate(id, customer, { new: true });
 
         if (!customerFound) {
             return `El usuario con el id ${id} no existe en la base de datos`;
@@ -37,7 +37,7 @@ export class CustomersService {
     }
 
     async removeCustomer(id: string) {
-        const customerFound = await this.customerDocumentModel.findByIdAndDelete(id).exec();
+        const customerFound = await this.customerDocumentModel.findByIdAndDelete(id);
 
         if (!customerFound) {
             return `El usuario con el id ${id} no existe en la base de datos`;
