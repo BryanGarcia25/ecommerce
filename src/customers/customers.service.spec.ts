@@ -101,4 +101,15 @@ describe('CustomersService', () => {
     const result = await service.findCustomerById('1');
     expect(result).toEqual(mockCustomer);
   });
+
+  it('Test para actualizar un cliente por su id', async () => {
+    const customerDto = { name: 'Mary Gómez', email: 'mary@gmail.com', phone: '7381289384', address: 'Av. Springfield', age: 29, city: 'New York', gender: 'Female' };
+
+    const mockCustomer = { id: '1', ...customerDto };
+
+    jest.spyOn(model, 'findByIdAndUpdate').mockImplementation(() => mockCustomer as any);
+
+    const result = await service.updateCustomer('1', customerDto);
+    expect(result).toEqual('Se actualizo el cliente con el id 1 de manera correcta')
+  });
 });
