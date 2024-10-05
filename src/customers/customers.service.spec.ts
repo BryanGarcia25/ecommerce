@@ -43,4 +43,44 @@ describe('CustomersService', () => {
     const result = await service.createCustomer(customerDto);
     expect(result).toEqual(mockCustomer)
   });
+
+  it('Test para obtener todos los clientes', async () => {
+    const mockCustomer = [
+      {
+        id: '1',
+        name: 'Mary Gómez',
+        email: 'mary@example.com',
+        phone: '7381289384',
+        address: 'Av. Springfield',
+        age: 29,
+        city: 'New York',
+        gender: 'Female' 
+      },
+      {
+        id: '2',
+        name: 'Joe Smith',
+        email: 'jsmith@example.com',
+        phone: '7895621423',
+        address: 'Av. Abraham Lincon',
+        age: 43,
+        city: 'Paris',
+        gender: 'Male' 
+      },
+      {
+        id: '3',
+        name: 'Andres Martinez',
+        email: 'martinez21@example.com',
+        phone: '5598523694',
+        address: 'Av. Independencia',
+        age: 21,
+        city: 'México',
+        gender: 'Male' 
+      },
+    ];
+
+    jest.spyOn(model, 'find').mockImplementation(() => mockCustomer as any);
+
+    const result = await service.findAllCustomers();
+    expect(result).toEqual(mockCustomer)
+  })
 });
