@@ -84,7 +84,7 @@ describe('CustomersService', () => {
     expect(result).toEqual(mockCustomer)
   })
 
-  it('Test para obtener todos los clientes', async () => {
+  it('Test para obtener un cliente por su ID', async () => {
     const mockCustomer = {
       id: '1',
       name: 'Mary Gómez',
