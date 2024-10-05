@@ -42,6 +42,8 @@ export class CustomersService {
         if (!customerFound) {
             return `El usuario con el id ${id} no existe en la base de datos`;
         }
+
+        return `Se elimino el cliente con el id ${id} de manera correcta`;
     }
     
 }
