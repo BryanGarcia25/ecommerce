@@ -112,4 +112,13 @@ describe('CustomersService', () => {
     const result = await service.updateCustomer('1', customerDto);
     expect(result).toEqual('Se actualizo el cliente con el id 1 de manera correcta')
   });
+
+  it('Test para eliminar un cliente por su ID', async () => {
+    const mockCustomer = { id: '1' }
+
+    jest.spyOn(model, 'findByIdAndDelete').mockImplementation(() => mockCustomer as any);
+
+    const result = await service.removeCustomer('1');
+    expect(result).toEqual('Se elimino el cliente con el id 1 de manera correcta');
+  });
 });
