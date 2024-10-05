@@ -83,4 +83,22 @@ describe('CustomersService', () => {
     const result = await service.findAllCustomers();
     expect(result).toEqual(mockCustomer)
   })
+
+  it('Test para obtener todos los clientes', async () => {
+    const mockCustomer = {
+      id: '1',
+      name: 'Mary Gómez',
+      email: 'mary@example.com',
+      phone: '7381289384',
+      address: 'Av. Springfield',
+      age: 29,
+      city: 'New York',
+      gender: 'Female' 
+    }
+
+    jest.spyOn(model, 'findById').mockImplementation(() => mockCustomer as any);
+
+    const result = await service.findCustomerById('1');
+    expect(result).toEqual(mockCustomer);
+  });
 });
