@@ -4,12 +4,15 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Customer, CustomerDocument } from './customer.schema';
 import { Model } from 'mongoose';
 import { AuditService } from 'src/audit/audit.service';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { CustomerCreateEvent } from './events/customer-create.event';
 
 @Injectable()
 export class CustomersService {
     constructor(
         @InjectModel(Customer.name) private readonly customerDocumentModel: Model<CustomerDocument>,
-        private readonly auditService: AuditService
+        private readonly auditService: AuditService,
+        private readonly eventEmitter: EventEmitter2
     ) {}
 
     findAllCustomers() {
@@ -28,7 +31,8 @@ export class CustomersService {
 
     async createCustomer(customer: CustomerDto, userId: string) {
         const registeredClient = await this.customerDocumentModel.create(customer);
-        await this.auditService.logAction('create', 'customers', registeredClient._id as string, userId, JSON.stringify(customer))
+        await this.auditService.logAction('create', 'customers', registeredClient._id as string, userId, JSON.stringify(customer));
+        this.eventEmitter.emit('customer.create', new CustomerCreateEvent(registeredClient._id as string, registeredClient.name, registeredClient.email));
         return registeredClient;
     }
 
