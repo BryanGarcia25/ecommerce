@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, ValidationPipe } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { CustomerDto } from './DTO/customer.dto';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -27,9 +27,8 @@ export class CustomersController {
     @Post()
     @ApiOperation({ summary: 'Endpoint para registrar un cliente nuevo' })
     @ApiResponse({ status: 201, description: 'Cliente registrado con éxito' })
-    createCustomer(@Body(new ValidationPipe()) customerDTO: CustomerDto, @Req() req) {
-        const userId = req.user.userId;
-        return this.customersService.createCustomer(customerDTO, userId);
+    createCustomer(@Body(new ValidationPipe()) customerDTO: CustomerDto) {
+        return this.customersService.createCustomer(customerDTO);
     }
 
     @Put(':id')
@@ -37,9 +36,8 @@ export class CustomersController {
     @ApiParam({ name: 'id', description: 'ID del cliente' })
     @ApiResponse({ status: 201, description: 'Cliente actualizado con éxito' })
     @ApiResponse({ status: 404, description: 'El cliente no existe' })
-    updateCustomer(@Param('id') id: string, @Body(new ValidationPipe()) customerDTO: CustomerDto, @Req() req) {
-        const userId = req.user.userId;
-        return this.customersService.updateCustomer(id, customerDTO, userId);
+    updateCustomer(@Param('id') id: string, @Body(new ValidationPipe()) customerDTO: CustomerDto) {
+        return this.customersService.updateCustomer(id, customerDTO);
     }
 
     @Delete('id')
@@ -47,9 +45,8 @@ export class CustomersController {
     @ApiParam({ name: 'id', description: 'ID del cliente' })
     @ApiResponse({ status: 201, description: 'Cliente eliminado con éxito' })
     @ApiResponse({ status: 404, description: 'El cliente no existe' })
-    removeCustomer(@Param('id') id: string, @Req() req) {
-        const userId = req.user.userId;
-        return this.customersService.removeCustomer(id, userId);
+    removeCustomer(@Param('id') id: string) {
+        return this.customersService.removeCustomer(id);
     }
 
 }
