@@ -5,6 +5,7 @@ import { CustomersModule } from './customers/customers.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuditModule } from './audit/audit.module';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { PrometheusModule } from '@willsoto/nestjs-prometheus';
         uri: `mongodb://${process.env.MONGODB_HOST}/${process.env.MONGODB_DATABASE}`
       })
     }),
-    AuditModule
+    AuditModule,
+    OrdersModule
   ],
   controllers: [AppController],
   providers: [AppService],
