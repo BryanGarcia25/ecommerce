@@ -29,33 +29,33 @@ export class CustomersService {
         return customerFound;
     }
 
-    async createCustomer(customer: CustomerDto, userId: string) {
+    async createCustomer(customer: CustomerDto) {
         const registeredClient = await this.customerDocumentModel.create(customer);
-        await this.auditService.logAction('create', 'customers', registeredClient._id as string, userId, JSON.stringify(customer));
+        await this.auditService.logAction('create', 'customers', registeredClient._id as string, JSON.stringify(customer));
         this.eventEmitter.emit('customer.create', new CustomerCreateEvent(registeredClient._id as string, registeredClient.name, registeredClient.email));
         return registeredClient;
     }
 
-    async updateCustomer(id: string, customer: CustomerDto, userId: string) {
+    async updateCustomer(id: string, customer: CustomerDto) {
         const customerFound = await this.customerDocumentModel.findByIdAndUpdate(id, customer, { new: true });
 
         if (!customerFound) {
             return `El usuario con el id ${id} no existe en la base de datos`;
         }
 
-        await this.auditService.logAction('update', 'customers', id, userId, JSON.stringify(customer))
+        await this.auditService.logAction('update', 'customers', id, JSON.stringify(customer))
 
         return `Se actualizo el cliente con el id ${id} de manera correcta`;
     }
 
-    async removeCustomer(id: string, userId: string) {
+    async removeCustomer(id: string) {
         const customerFound = await this.customerDocumentModel.findByIdAndDelete(id);
 
         if (!customerFound) {
             return `El usuario con el id ${id} no existe en la base de datos`;
         }
 
-        await this.auditService.logAction('delete', 'customers', id, userId, '{ }')
+        await this.auditService.logAction('delete', 'customers', id, '{ }')
 
         return `Se elimino el cliente con el id ${id} de manera correcta`;
     }
