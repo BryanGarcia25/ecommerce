@@ -13,9 +13,6 @@ export class Audit extends Document {
     entityId: string;
 
     @Prop({ required: true })
-    userId: string;
-
-    @Prop({ required: true })
     changes: string;
 
     @Prop({ required: true })
