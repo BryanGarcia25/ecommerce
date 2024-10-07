@@ -8,6 +8,7 @@ export class AuditService {
     constructor(@InjectModel(Audit.name) private readonly auditModel: Model<Audit>) {}
 
     async logAction(action: string, entity: string, entityId: string, userId: string, changes: string) {
-        return this.auditModel.create(action, entity, entityId, userId, changes, Date())
+        const createAudit = new this.auditModel({action, entity, entityId, userId, changes, timestamp: Date()});
+        return createAudit.save();
     }
 }
