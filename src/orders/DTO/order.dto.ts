@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString } from "class-validator";
+import { ArrayNotEmpty, IsArray, IsNotEmpty, IsString } from "class-validator";
 
 export class OrderDto {
     @ApiProperty({ description: 'Id del cliente que realiza el pedido' })
@@ -8,8 +8,9 @@ export class OrderDto {
     readonly customerId: string;
 
     @ApiProperty({ description: 'Lista de ids de productos que se comprarán' })
-    @IsString()
-    @IsNotEmpty()
+    @IsArray()
+    @ArrayNotEmpty()
+    @IsString({ each: true })
     readonly productIds: string[];
 
     @ApiProperty({ description: 'Fecha que se realizo el pedido' })
@@ -55,7 +56,7 @@ export class OrderDto {
     @ApiProperty({ description: 'Fecha estimada de la entrega del pedido' })
     @IsString()
     @IsNotEmpty()
-    readonly estimatedDeliveryDate: string;
+    readonly estimatedDeliveryDate: Date;
 
     @ApiProperty({ description: 'Estado del pago (Pendiente, realizado, fallido)' })
     @IsString()
