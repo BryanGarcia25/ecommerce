@@ -7,6 +7,7 @@ import { AuditModule } from './audit/audit.module';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { OrdersModule } from './orders/orders.module';
 import { ProductsModule } from './products/products.module';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { ProductsModule } from './products/products.module';
     }),
     AuditModule,
     OrdersModule,
-    ProductsModule
+    ProductsModule,
+    PaymentsModule
   ],
   controllers: [AppController],
   providers: [AppService],
